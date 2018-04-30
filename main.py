@@ -3,6 +3,18 @@ import os, random
 
 played = 1
 
+import pyttsx3
+def readfile(file):
+    engine = pyttsx3.init()
+    #file = "readthis.txt"
+    fileo = open(file, "r" )
+    lines_of_text = fileo.readlines() 
+    engine.say(lines_of_text)
+    engine.runAndWait()
+    
+file = "readthis.txt"
+
+
 def rndmp3 ():
     global played
     randomfile = random.choice(os.listdir("OnAir/"))
