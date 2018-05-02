@@ -2,6 +2,7 @@
 import os, random
 
 played = 1
+current_dir = os.path.dirname(__file__)
 
 import pyttsx3
 def readfile(file):
@@ -11,24 +12,19 @@ def readfile(file):
     lines_of_text = fileo.readlines() 
     engine.say(lines_of_text)
     engine.runAndWait()
-    
-file = "readthis.txt"
-
 
 def rndmp3 ():
     global played
+    global current_dir
     randomfile = random.choice(os.listdir("OnAir/"))
-    file = ' /home/pi/Mainlist/'+ randomfile
+    file = current_dir + randomfile
     if file == played:
         pass
     
     elif randomfile.endswith('.txt'):
         readfile(file)
         #print(randomfile)
-            
-        
-        
-    
+ 
     else:
         print(randomfile)
         os.system ('omxplayer -o local' + file)    
