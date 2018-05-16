@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 import os, random, re, pyttsx3
 from lxml import etree
+from xml.dom import minidom
+
+mydoc = minidom.parse('MapClick.php.xml')
+times = mydoc.getElementsByTagName('start-valid-time')
+
+# one specific item attribute
+print(times[0].attributes['period-name'].value)
+print(times[1].attributes['period-name'].value)
 
 #Preferences. Move to another file.
 log = 0 #default = 0
