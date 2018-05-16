@@ -1,13 +1,22 @@
 #!/usr/bin/env python
-import os, random
+import os, random, re, pyttsx3
+from lxml import etree
 
+#Preferences. Move to another file.
 log = 0 #default = 0
+#voice_type = 0 # 0=male, 1=female
 played = 1
 current_dir = os.path.dirname(__file__)
 
-
-import re
-import pyttsx3
+def read_forecast():
+   file = open('forecast.xml')
+   tree = etree.parse(file)
+   timename = tree.xpath('//data/time-layout/start-valid-time/@period-name')
+   cast = tree.xpath('//wordedForecast/text/text()')
+   forecast = timename[0],"it's", cast[0], timename[1], "will be", cast[1]
+   engine = pyttsx3.init()
+   engine.say(forecast)
+   engine.runAndWait()
 
 def readfile(file, voice_type=0):
     engine = pyttsx3.init()
@@ -22,8 +31,8 @@ def readfile(file, voice_type=0):
     engine.say(lines_of_text)
     engine.runAndWait()
 
-file = "readthis.txt"
-readfile(file,1)
+#file = "readthis.txt"
+#readfile(file,1)
 
 def playlog(file):
     if(log == 1):
@@ -46,7 +55,6 @@ def playlog(file):
         #print(output_text)
         fh.writelines(output_text)
         fh.close()
-
 
 def rndmp3 ():
     global played
